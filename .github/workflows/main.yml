@@ -1,0 +1,21 @@
+name: Private Branch Protection
+ 
+on:
+  push:
+    branches:
+      - private-branch-20241023  # 替换为您的私有分支名称
+ 
+jobs:
+  private-branch-protection:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout private branch
+        uses: actions/checkout@v2
+        with:
+          ref: refs/heads/private-branch-name
+ 
+      - name: Reset private branch
+        run: |
+          git branch -D main
+          git checkout private-branch-name
+          git push origin +private-branch-name --force
